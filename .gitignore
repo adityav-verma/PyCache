@@ -1,3 +1,6 @@
+# Application config
+app/config.py
+
 # Editor config folders
 .idea
 

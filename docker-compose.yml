@@ -4,6 +4,6 @@ services:
     build:
       context: .
     volumes:
-      - ./app:/www/app/appd
+      - ./app:/www/app/app
     ports:
       - "8001:80"

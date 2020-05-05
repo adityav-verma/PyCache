@@ -21,3 +21,9 @@ def set_key(cache_key):
 def get_key(cache_key):
     cache_item = cache_obj.get(cache_key)
     return ApiResult(payload=cache_item, message='Cache key get success', status=HTTPStatus.OK)
+
+
+@cache.route('/<string:cache_key>/', methods=['DELETE'])
+def expire_key(cache_key):
+    cache_obj.expire(cache_key)
+    return ApiResult(payload={}, message='Cache key expired', status=HTTPStatus.OK)

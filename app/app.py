@@ -1,5 +1,7 @@
 from http import HTTPStatus
 
+from app.factories.in_memory_cache_factory import InMemoryCacheFactory
+from app.models.in_memory_cache import InMemoryCache
 from .config import Config
 from .api_flask import ApiFlask
 from .exceptions import ApiException
@@ -7,7 +9,9 @@ from .utilities.api_result import ApiResult
 
 
 # For import *
-__all__ = ['create_app']
+__all__ = ['create_app', 'cache_obj']
+
+cache_obj = InMemoryCache(InMemoryCacheFactory())
 
 
 def create_app(config=None, app_name=None):
@@ -45,7 +49,8 @@ def configure_extensions(app):
 def configure_blueprints(app):
     """Register all blueprints with the app"""
     from .apis.health import health
-    for bp in [health]:
+    from .apis.cache import cache
+    for bp in [health, cache]:
         app.register_blueprint(bp)
 
 

@@ -27,10 +27,7 @@ class InMemoryCache(CacheInterface):
         if key not in self._items:
             return None
         cache_item = self._items[key]
-
-        # TODO: Maybe move this to command or something
-
-        if cache_item.expires_at and str(cache_item.expires_at) < str(datetime.utcnow()):
+        if cache_item.expires_at and cache_item.expires_at < datetime.utcnow():
             self._items.pop(key)
             return None
         return cache_item
@@ -38,6 +35,5 @@ class InMemoryCache(CacheInterface):
     def expire(self, key: str) -> bool:
         if key not in self._items:
             return False
-        cache_item = self._items[key]
-        cache_item.expires_at = datetime.utcnow()
-        self._items[key] = cache_item
+        self._items.pop(key)
+        return True

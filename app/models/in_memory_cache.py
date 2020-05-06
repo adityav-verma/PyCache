@@ -21,7 +21,6 @@ class InMemoryCache(CacheInterface):
         else:
             cache_item = self._cache_factory.create_cache_item(key, value, expires_at)
             self._items[key] = cache_item
-        # TODO: Publish event maybe
         return cache_item
 
     def get(self, key: str) -> Optional[CacheItemInterface]:

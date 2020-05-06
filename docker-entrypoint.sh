@@ -6,6 +6,8 @@
 set -exo pipefail
 
 _start_application () {
+  echo "Staring server"
+
   echo "Staring nginx"
   service nginx start
 
@@ -13,17 +15,15 @@ _start_application () {
   uwsgi uwsgi.ini
 }
 
-run_dev () {
-  echo "Starting cluster components"
-  if [ $WORKER ]
-  then
-    echo "Starting replication worker: $WORKER"
-    python start_workers.py $WORKER
-    tail -f /dev/null
-  else
-    echo "Starting cache server"
-    _start_application
-  fi
+_start_worker () {
+  echo "Starting replication worker"
+  python -u start_worker.py 'replication' > 'replication_logs.txt' &
 }
 
-run_dev
+run () {
+  echo "Starting cluster components"
+  _start_worker
+  _start_application
+}
+
+run

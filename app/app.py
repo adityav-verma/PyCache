@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from app.factories.in_memory_cache_factory import InMemoryCacheFactory
+from app.managers.cache_event_observer import CacheEventObserver
 from app.managers.cache_manager import CacheManager
 from .config import Config
 from .api_flask import ApiFlask
@@ -13,6 +14,7 @@ __all__ = ['create_app', 'cache_manager']
 
 # Init a cache
 cache_manager = CacheManager(InMemoryCacheFactory())
+cache_event_observer = CacheEventObserver()
 
 
 def create_app(config=None, app_name=None):

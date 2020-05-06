@@ -1,5 +1,3 @@
-import requests
-
 from app.constants import CacheEventTopic
 from app.factories.in_memory_cache_factory import InMemoryCacheFactory
 from app.managers.cache_manager import CacheManager

@@ -43,6 +43,5 @@ def expire_key(cache_key):
 @validate_request_schema(SyncPayload)
 def sync():
     data = request.json
-    print(data)
     cache_manager.sync(data['key'], data['value'], data['operation'])
     return ApiResult(payload={}, message='Cache key synced', status=HTTPStatus.OK)

@@ -1,6 +1,6 @@
 from app.constants import CacheOperation
 
-NumberCacheItem= {
+NumberCacheItem = {
     'type': 'number'
 }
 

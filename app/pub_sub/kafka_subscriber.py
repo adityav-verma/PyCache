@@ -22,4 +22,3 @@ class KafkaSubscriber(SubscriberInterface):
     def subscribe(self) -> Iterator:
         for message in self._subscriber:
             yield message
-

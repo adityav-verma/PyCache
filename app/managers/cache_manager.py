@@ -29,7 +29,8 @@ class CacheManager:
     def expire(self, key: str) -> bool:
         cache_item = self.get(key)
         response = self._cache.expire(key)
-        self._publish_event(EventType.CACHE_EXPIRE, key, cache_item.value)
+        if cache_item:
+            self._publish_event(EventType.CACHE_EXPIRE, key, cache_item.value)
         return response
 
     def sync(self, key: str, value: Dict, operation: CacheOperation):
@@ -47,5 +48,4 @@ class CacheManager:
             payload['operation'] = CacheOperation.SET.value
         elif event_type == EventType.CACHE_EXPIRE.value:
             payload['operation'] = CacheOperation.EXPIRE.value
-        response = requests.post('http://localhost/api/cache/sync/', json=payload)
-        print(response.text)
+        requests.post('http://localhost/api/cache/sync/', json=payload)

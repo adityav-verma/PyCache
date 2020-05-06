@@ -13,8 +13,8 @@ class CacheFactoryInterface(ABC):
     def create_cache(self) -> CacheInterface: pass
 
     @abstractmethod
-    def create_cache_item(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface: pass
+    def create_cache_item(
+            self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface: pass
 
     @abstractmethod
     def create_cache_event(self, type: EventType, key: str, value: Optional[Dict]) -> EventInterface: pass
-

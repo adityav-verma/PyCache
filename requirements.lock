@@ -9,3 +9,4 @@ pyrsistent==0.16.0
 six==1.14.0
 uWSGI==2.0.18
 Werkzeug==1.0.1
+kafka-python==2.0.1

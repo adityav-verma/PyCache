@@ -5,6 +5,9 @@ app/config.py
 .idea
 
 
+# Kafka logs
+bitnam/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

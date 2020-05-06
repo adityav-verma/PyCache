@@ -12,3 +12,8 @@ class CacheEventObserver:
         # Push event to broker for syncing across
         print('inside observer')
         print(event.__dict__)
+
+
+from kafka import KafkaProducer
+
+producer = KafkaProducer()

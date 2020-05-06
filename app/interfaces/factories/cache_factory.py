@@ -12,3 +12,4 @@ class CacheFactoryInterface(ABC):
 
     @abstractmethod
     def create_cache_item(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface: pass
+

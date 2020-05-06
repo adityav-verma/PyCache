@@ -1,6 +1,4 @@
 import sys
-import os
-import time
 
 from app.app import create_app
 

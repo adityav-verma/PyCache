@@ -24,15 +24,15 @@ class InMemoryCache(CacheInterface):
         # TODO: Publish event maybe
         return cache_item
 
-    def get(self, key: str) -> Optional[Dict]:
+    def get(self, key: str) -> Optional[CacheItemInterface]:
         if key not in self._items:
-            return {}
+            return None
         cache_item = self._items[key]
         # TODO: Maybe move this to command or something
         if cache_item.expires_at and cache_item.expires_at < datetime.utcnow():
             self._items.pop(key)
-            return {}
-        return cache_item.value
+            return None
+        return cache_item
 
     def expire(self, key: str) -> bool:
         if key not in self._items:

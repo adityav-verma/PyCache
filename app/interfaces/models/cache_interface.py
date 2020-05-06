@@ -10,7 +10,7 @@ class CacheInterface(ABC):
     def set(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface: pass
 
     @abstractmethod
-    def get(self, key: str) -> Optional[Dict]: pass
+    def get(self, key: str) -> Optional[CacheItemInterface]: pass
 
     @abstractmethod
     def expire(self, key: str) -> bool: pass

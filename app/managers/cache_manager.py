@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import Optional, Dict
 
+import requests
+
 from app.constants import CacheOperation, EventType
 from app.interfaces.factories.cache_factory import CacheFactoryInterface
 from app.interfaces.models.cache_item_interface import CacheItemInterface
@@ -25,8 +27,9 @@ class CacheManager:
         return self._cache.get(key)
 
     def expire(self, key: str) -> bool:
+        cache_item = self.get(key)
         response = self._cache.expire(key)
-        self._publish_event(EventType.CACHE_SET, key, None)
+        self._publish_event(EventType.CACHE_EXPIRE, key, cache_item.value)
         return response
 
     def sync(self, key: str, value: Dict, operation: CacheOperation):
@@ -37,3 +40,12 @@ class CacheManager:
             self._cache.expire(key)
         else:
             raise Exception(f'Invalid cache operation: {key}, {value}, {operation}')
+
+    def replicate(self, key: str, value: Dict, event_type: EventType):
+        payload = {'key': key, 'value': value}
+        if event_type == EventType.CACHE_SET.value:
+            payload['operation'] = CacheOperation.SET.value
+        elif event_type == EventType.CACHE_EXPIRE.value:
+            payload['operation'] = CacheOperation.EXPIRE.value
+        response = requests.post('http://localhost/api/cache/sync/', json=payload)
+        print(response.text)

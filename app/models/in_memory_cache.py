@@ -24,17 +24,27 @@ class InMemoryCache(CacheInterface):
         return cache_item
 
     def get(self, key: str) -> Optional[CacheItemInterface]:
+        print(key)
         if key not in self._items:
             return None
         cache_item = self._items[key]
+        print(cache_item.__dict__, datetime.utcnow())
+
         # TODO: Maybe move this to command or something
-        if cache_item.expires_at and cache_item.expires_at < datetime.utcnow():
+
+        if cache_item.expires_at and str(cache_item.expires_at) < str(datetime.utcnow()):
+            print('inside if')
             self._items.pop(key)
             return None
         return cache_item
 
     def expire(self, key: str) -> bool:
+        print(key)
+        print(self._items)
         if key not in self._items:
             return False
         cache_item = self._items[key]
         cache_item.expires_at = datetime.utcnow()
+        self._items[key] = cache_item
+        print(self._items)
+        print(cache_item.__dict__)

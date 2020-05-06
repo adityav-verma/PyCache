@@ -21,6 +21,7 @@ _start_worker () {
 }
 
 run () {
+  python -u wait_for_dependencies.py
   echo "Starting cluster components"
   _start_worker
   _start_application

@@ -10,3 +10,7 @@ class CacheOperation(Enum):
 class EventType(Enum):
     CACHE_SET = 'cache_set'
     CACHE_EXPIRE = 'cache_expire'
+
+
+class CacheEventTopic:
+    NAME = 'cache'

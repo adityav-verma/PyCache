@@ -1,6 +1,7 @@
 import json
 
 from kafka import KafkaProducer
+from kafka.errors import KafkaError
 
 from app.interfaces.models.event_interface import EventInterface
 from app.interfaces.pub_sub.publisher_interface import PublisherInterface
@@ -19,4 +20,15 @@ class KafkaPublisher(PublisherInterface):
         )
 
     def publish(self, event: EventInterface):
-        self._publisher.send(self._topic, key=event.type, value=event.payload)
+        print(self._topic)
+        print(event.type.value)
+        print(event.payload)
+        x = self._publisher.send(self._topic, key=event.type.value, value=event.payload)
+        self._publisher.flush()
+
+        # Block for 'synchronous' sends
+        try:
+            record_metadata = x.get(timeout=10)
+        except KafkaError as e:
+            # Decide what to do if produce request failed...
+            print(e)

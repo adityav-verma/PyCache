@@ -24,3 +24,7 @@ class CacheItemInterface(ABC):
     @expires_at.setter
     @abstractmethod
     def expires_at(self, value: datetime): pass
+
+    @property
+    @abstractmethod
+    def last_updated_at(self) -> datetime: pass

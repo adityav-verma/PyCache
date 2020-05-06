@@ -5,10 +5,12 @@ from app.interfaces.models.cache_item_interface import CacheItemInterface
 
 
 class InMemoryCacheItem(CacheItemInterface):
+
     def __init__(self, key: str, value: Dict, expires_at: Optional[datetime] = None):
         self._key = key
         self._value = value
         self._expires_at = expires_at
+        self._last_updated_at = datetime.utcnow()
 
     @property
     def key(self) -> str:
@@ -29,3 +31,7 @@ class InMemoryCacheItem(CacheItemInterface):
     @expires_at.setter
     def expires_at(self, value: datetime):
         self._expires_at = value
+
+    @property
+    def last_updated_at(self) -> datetime:
+        return self._last_updated_at

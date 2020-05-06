@@ -6,8 +6,10 @@ from app.interfaces.models.cache_interface import CacheInterface
 from app.interfaces.models.cache_item_interface import CacheItemInterface
 from app.models.in_memory_cache import InMemoryCache
 from app.models.in_memory_cache_item import InMemoryCacheItem
+from app.utilities.singleton import singleton
 
 
+@singleton
 class InMemoryCacheFactory(CacheFactoryInterface):
     def create_cache(self) -> CacheInterface:
         return InMemoryCache(self)

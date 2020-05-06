@@ -13,10 +13,11 @@ class CacheManager:
     def __init__(self, factory: CacheFactoryInterface):
         self._factory = factory
         self._cache = factory.create_cache()
+        self._event_queue = EventQueue()
 
     def _publish_event(self, type: EventType, key: str, value: Optional[Dict]):
         event = self._factory.create_cache_event(type, key, value)
-        EventQueue().publish(event)
+        self._event_queue.publish(event)
 
     def set(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface:
         response = self._cache.set(key, value, expires_at)

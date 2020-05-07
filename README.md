@@ -1,12 +1,20 @@
 # PyCache
-A distributed in memory key value store
+A distributed in memory key-value store.
 
 ## Architecture
-The system is distributed in the sense:
-- Every node/server is a flask application, which supports Rest APIs to set, get and expire a key
-- Nginx distributes load between the servers, hence making it possible to scale the system horizontally
-- A users could directly make an API call to a server, by using it's address rather than Nginx
-- Since, every node is acting as a master in this setup, syncing is done using Pub/Sub model
+The system is divided into the following components:
+- Queries:
+    - A `Flask API server`, which has a REST API interface for clients to consume
+        - 3 containers of the flask server are run, to simulate 3 nodes, however, the system works for `n` nodes
+- Load balancing:
+    - `Nginx` is configured to distribute load between the nodes/containers in a round robin manner. Can horizontally scale the containers now.
+- Replication across nodes:
+    - Publisher/Subscriber mechanism is used for replication
+    - `Kafka` is used as a kind of external commit-log, every add/expire operation is added to the log
+    - Along with an app server, the containers also have a `worker/consumer` process running, which consumes the commit log and updates the in memory data
+- Fault tolerance:
+    - If a server goes down, Nginx forwards the request to next one. There by not impacting the client.
+    - When a server comes back up, it can replay the entire commit log, and be back in sync with other servers
 
 ### Application Server
 The server is a flask application, served via Nginx and a single worker of uWSGI.

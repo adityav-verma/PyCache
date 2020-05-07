@@ -72,8 +72,12 @@ In production setup, we won't attach the node to the load-balancer until it has 
 ## API Documentation
 [API documentation](./docs/api_doc.md)
 
-## Architecture
+## System Architecture
 
-![Architecture diagram](./docs/architecture_diagram.png)
+![System Architecture diagram](./docs/architecture_diagram.png)
 
-For details on the architecture, check the [Architecture documentation](./docs/architecture.md).
+For details on the architecture, check the [System Architecture documentation](./docs/architecture.md).
+
+
+## Code Architecture
+For details on the code architecture, check the [Code Architecture documentation](./docs/code_architecture.md).

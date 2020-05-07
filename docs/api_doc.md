@@ -1,9 +1,23 @@
 ## API Documentation
 
+There are two API Hosts
+**Load Balancer:**
+
+`http://localhost:5000/`
+
+This is going to route the request via Nginx, in Round Robin fashion
+
+
+**Individual nodes:**
+
+`http://localhost:8001/`, `http://localhost:8002/`, `http://localhost:8003/`
+
+This will directly hit the node. Useful for testing node failure or replication.
+
 ### SET a Key and Value pair
 **URL and method**
 
-`POST http://localhost:5000/api/cache/<key_name>/`
+`POST <api_host>/api/cache/<key_name>/`
 
 **Payload**
 
@@ -55,7 +69,7 @@ CacheItemValue = {
 ### GET the Value for a Key
 **URL and method**
 
-`GET http://localhost:5000/api/cache/<key_name>/`
+`GET <api_host>/api/cache/<key_name>/`
 
 **Payload**
 NA
@@ -79,7 +93,7 @@ NA
 ### EXPIRE a Key
 **URL and method**
 
-`DELETE http://localhost:5000/api/cache/<key_name>/`
+`DELETE <api_host>/api/cache/<key_name>/`
 
 **Payload**
 NA

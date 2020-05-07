@@ -18,6 +18,7 @@ class InMemoryCacheItem(CacheItemInterface):
 
     @property
     def value(self) -> Dict:
+        self._last_updated_at = datetime.utcnow()
         return self._value
 
     @value.setter

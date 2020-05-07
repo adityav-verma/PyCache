@@ -14,3 +14,15 @@ class CacheInterface(ABC):
 
     @abstractmethod
     def expire(self, key: str) -> bool: pass
+
+    @property
+    @abstractmethod
+    def max_size(self) -> int: pass
+
+    @property
+    @abstractmethod
+    def size(self) -> int: pass
+
+    @property
+    @abstractmethod
+    def items(self) -> Dict[str, CacheItemInterface]: pass

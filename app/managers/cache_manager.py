@@ -4,13 +4,14 @@ from typing import Optional, Dict
 from app.constants import CacheOperation, EventType
 from app.interfaces.factories.cache_factory import CacheFactoryInterface
 from app.interfaces.models.cache_item_interface import CacheItemInterface
+from app.managers.lru_eviction_policy import LRUEvictionPolicy
 from app.models.event_queue import EventQueue
 
 
 class CacheManager:
     def __init__(self, factory: CacheFactoryInterface):
         self._factory = factory
-        self._cache = factory.create_cache()
+        self._cache = factory.create_cache(1000000, LRUEvictionPolicy())
         self._event_queue = EventQueue()
 
     def _publish_event(self, type: EventType, cache_item: CacheItemInterface):

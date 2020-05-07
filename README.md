@@ -16,8 +16,12 @@ The application uses docker containers and docker-compose to run multiple contai
 5. Run docker compose to start the cluster
 	1. `docker-compose up`
 
-### Tricky stuff
-Often times, killing docker-compose and restarting it might fail, since Kafka is not able to create a resource in Zookeeper. For this, wait for 1 min, then kill and start docker compose again.
+**Tricky stuff**
+
+Often times, killing docker-compose and restarting it might fail, since Kafka is not able to create a resource in Zookeeper.
+For this, wait for 1 min, then kill and start docker compose again.
+
+Or we can only restart kafka by: `docker-compose restart kafka`
 
 **Why does this happen?**
 
@@ -25,13 +29,14 @@ When Kafka starts, it registers it’s own broker with Zookeeper, however, if we
 
 On the next start it tries to do the same thing, but fails. Zookeeper after a min cleans up any dangling registrations. Hence we can restart and things work again.
 
-
-## Various cases to validate
+## Covered Cases
 
 ### Basic SET, GET and EXPIRE operations
 The API requests can be made to the load-balancer which will route them in round robin fashion, or to the individual nodes as well.
 
-Refer to [API documentation](./docs/api_doc.md) for more details on both. 
+Refer to [API documentation](./docs/api_doc.md) for more details on both.
+
+Set value on one node and read from another works.
 
 
 ### Node failure

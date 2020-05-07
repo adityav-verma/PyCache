@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Dict, Optional
 
 from app.constants import EventType
+from app.interfaces.eviction_policy_interface import EvictionPolicyInterface
 from app.interfaces.models.cache_interface import CacheInterface
 from app.interfaces.models.cache_item_interface import CacheItemInterface
 from app.interfaces.models.event_interface import EventInterface
@@ -10,7 +11,7 @@ from app.interfaces.models.event_interface import EventInterface
 
 class CacheFactoryInterface(ABC):
     @abstractmethod
-    def create_cache(self) -> CacheInterface: pass
+    def create_cache(self, max_size: int, eviction_policy: EvictionPolicyInterface) -> CacheInterface: pass
 
     @abstractmethod
     def create_cache_item(

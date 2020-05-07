@@ -1,16 +1,25 @@
-## Architecture
-### Queries
-* A `Flask API server`, which has a REST API interface for clients to consume
-* 3 containers of the flask server are run, to simulate 3 nodes, however, the system works for `n` nodes
+# Architecture
 
-### Load Balancing
-* `Nginx` is configured to distribute load between the nodes/containers in a round robin manner. Can horizontally scale the containers now.
+![Architecture diagram](architecture_diagram.png)
 
-### Replication across nodes:
-* Publisher/Subscriber mechanism is used for replication
-*  `Kafka` is used as a kind of external commit-log, every add/expire operation is added to the log
-* Along with an app server, the containers also have a `worker/consumer` process running, which consumes the commit log and updates the in memory data
+## Cache Server
+A cache server has two parts:
+- A `Flask application`, serving API requests, and managing in memory cache
+- A `Background worker`, which subscribes to central commit log and syncs the messages with the flask server. 
 
-### Fault tolerance:
-* If a server goes down, Nginx forwards the request to next one. There by not impacting the client.
-* When a server comes back up, it can replay the entire commit log, and be back in sync with other servers
+## Load-Balancer
+`Nginx` is used to balance the traffic between all the nodes in Round Robin Fashion.
+
+If a node is down Nginx will:
+- Automatically redirect the traffic to the next node
+- Won't push traffic to this node for the next 10 secs
+
+In production environment, we might want to handle this with liveness or readiness health checks.
+
+## Commit Log
+A central commit log is maintained using `Kafka`.
+
+- All SET and EXPIRE operations are put on the commit log for other cache servers to replicate.
+- Also since, the commit log is persisted, **we use this to bring a new node with sync to all other nodes, by replaying all the logs from the beginning.**
+
+In production, we would preferably use a managed solution for this by using AWS or GCP.

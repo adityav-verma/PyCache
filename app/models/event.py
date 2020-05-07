@@ -36,6 +36,6 @@ class CacheEvent(Event):
     def __init__(self, type: EventType, cache_item: CacheItemInterface):
         payload = {
             'key': cache_item.key, 'value': cache_item.value,
-            'last_accessed_at': str(cache_item.last_accessed_at)
+            'last_updated_at': str(cache_item.last_updated_at)
         }
         super(CacheEvent, self).__init__(type, payload)

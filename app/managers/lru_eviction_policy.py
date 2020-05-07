@@ -6,5 +6,5 @@ from app.interfaces.models.cache_item_interface import CacheItemInterface
 class LRUEvictionPolicy(EvictionPolicyInterface):
     def evict(self, cache: CacheInterface) -> CacheItemInterface:
         items = [value for key, value in cache.items.items()]
-        items.sort(key=lambda x: x.last_accessed_at)
+        items.sort(key=lambda x: x.last_updated_at)
         return items[0]

@@ -35,7 +35,9 @@ On the next start it tries to do the same thing, but fails. Zookeeper after a mi
 ### Basic SET, GET and EXPIRE operations
 The API requests can be made to the load-balancer which will route them in round robin fashion, or to the individual nodes as well.
 
-Refer to [API documentation](./docs/api_doc.md) for more details on both. 
+Refer to [API documentation](./docs/api_doc.md) for more details on both.
+
+Set value on one node and read from another works.
 
 
 ### Node failure

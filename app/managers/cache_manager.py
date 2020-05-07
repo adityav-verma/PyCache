@@ -11,7 +11,7 @@ from app.models.event_queue import EventQueue
 class CacheManager:
     def __init__(self, factory: CacheFactoryInterface):
         self._factory = factory
-        self._cache = factory.create_cache(1000, LRUEvictionPolicy())
+        self._cache = factory.create_cache(1000000, LRUEvictionPolicy())
         self._event_queue = EventQueue()
 
     def _publish_event(self, type: EventType, cache_item: CacheItemInterface):

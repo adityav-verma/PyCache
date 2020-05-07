@@ -29,4 +29,4 @@ On the next start it tries to do the same thing, but fails. Zookeeper after a mi
 [API documentation](./docs/api_doc.md)
 
 ## Architecture
-[API documentation](./docs/architecture.md)
+[Architecture documentation](./docs/architecture.md)

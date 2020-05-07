@@ -1,14 +1,12 @@
 ## API Documentation
-The cluster supports 3 operations
-* SET a Key and Value pair
-* GET the value for a Key
-* EXPIRE a Key
 
-### SET a key
+### SET a Key and Value pair
 **URL and method**
- `POST http://localhost:5000/api/cache/<key_name>/`
+
+`POST http://localhost:5000/api/cache/<key_name>/`
 
 **Payload**
+
 The value can be a String, Number, List and Object. The following JsonSchema can be used for the payload
 
 ```
@@ -49,6 +47,49 @@ CacheItemValue = {
         "value": <value>,
         "last_updated_at": <datetime string in utc>
     }
+}
+
+```
+
+
+### GET the Value for a Key
+**URL and method**
+
+`GET http://localhost:5000/api/cache/<key_name>/`
+
+**Payload**
+NA
+
+**Response**:
+```
+200
+{
+    "message": "Cache key get success",
+    "payload": {
+        "key": <key_name>,
+        "value": <value>,
+        "last_updated_at": <datetime string in utc>
+    }
+}
+
+```
+
+
+
+### EXPIRE a Key
+**URL and method**
+
+`DELETE http://localhost:5000/api/cache/<key_name>/`
+
+**Payload**
+NA
+
+**Response**:
+```
+200
+{
+    "message": "Cache key expired",
+    "payload": {}
 }
 
 ```

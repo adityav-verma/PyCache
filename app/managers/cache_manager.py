@@ -1,8 +1,6 @@
 from datetime import datetime
 from typing import Optional, Dict
 
-import requests
-
 from app.constants import CacheOperation, EventType
 from app.interfaces.factories.cache_factory import CacheFactoryInterface
 from app.interfaces.models.cache_item_interface import CacheItemInterface

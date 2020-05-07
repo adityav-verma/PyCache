@@ -1,6 +1,5 @@
-import uuid
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict
 
 from app.constants import EventType
 from app.interfaces.models.cache_item_interface import CacheItemInterface

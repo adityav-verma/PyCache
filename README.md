@@ -1,5 +1,5 @@
 # PyCache
-A distributed in memory key-value store.
+A distributed in memory key-value store in Python Flask.
 
 ## How to setup and run
 ### Prerequisites

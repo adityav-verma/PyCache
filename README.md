@@ -35,7 +35,7 @@ Refer to [API documentation](./docs/api_doc.md) for more details on both.
 
 
 ### Node failure
-We can simulate a node failure, by killing a container using docker. In the default setup, 3 cache containers are running, which are free to kill.
+We can simulate a node failure, by killing a container using docker. In the default setup, 3 cache containers are running, which we are free to kill.
 
 ```
 # List all running containers
@@ -50,7 +50,7 @@ We can even kill all the containers, however, the APIs will stop at this point.
 
 
 ### Node Reboot
-We can simulate a node reboot/reattachment, by starring the container(s) using docker.
+We can simulate a node reboot/reattachment, by starting the container(s) using docker.
 
 ```
 # List all containers, running and exited
@@ -59,10 +59,9 @@ docker ps -a
 # Start the container whose name has `cache`
 docker start <container_name>
 ```
-The node, after startup, will replay all the data from the commit log and will be in sync with other nodes.
+**The node, after startup, will replay all the data from the commit log and will be in sync with other nodes.**
 
-In production setup, we won't attach the node to the load-balancer until it has completed the sync (using rediness probe or something similar). However, in docker-compose there is no such option.
-
+In production setup, we won't attach the node to the load-balancer until it has completed the sync (using readiness probe or something similar). However, in docker-compose there is no such option.
 
 
 ## API Documentation

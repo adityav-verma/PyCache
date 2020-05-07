@@ -34,7 +34,6 @@ class CacheManager:
 
     def sync(self, key: str, value: Dict, operation: CacheOperation):
         if operation == CacheOperation.SET.value:
-            # TODO: Handle expire
             self._cache.set(key, value)
         elif operation == CacheOperation.EXPIRE.value:
             self._cache.expire(key)

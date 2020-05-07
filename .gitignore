@@ -5,7 +5,8 @@ app/config.py
 .idea
 
 
-# Kafka logs
+# logs
+replication_logs.txt
 bitnam/
 
 # Byte-compiled / optimized / DLL files

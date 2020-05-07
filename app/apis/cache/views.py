@@ -14,7 +14,6 @@ cache = Blueprint('cache', __name__, url_prefix='/api/cache')
 @cache.route('/<string:cache_key>/', methods=['POST'])
 @validate_request_schema(CacheItemValue)
 def set_key(cache_key):
-    # TODO: Support string, int, list and object
     value = request.json
     cache_item = cache_manager.set(cache_key, value)
     return ApiResult(

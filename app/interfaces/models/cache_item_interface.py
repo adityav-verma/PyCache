@@ -28,3 +28,6 @@ class CacheItemInterface(ABC):
     @property
     @abstractmethod
     def last_updated_at(self) -> datetime: pass
+
+    @abstractmethod
+    def to_dict(self) -> Dict: pass

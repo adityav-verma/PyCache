@@ -18,7 +18,7 @@ def set_key(cache_key):
     value = request.json
     cache_item = cache_manager.set(cache_key, value)
     return ApiResult(
-        payload={'key': cache_item.key, 'value': cache_item.value}, message='Cache key set success',
+        payload=cache_item.to_dict(), message='Cache key set success',
         status=HTTPStatus.CREATED
     )
 
@@ -27,7 +27,7 @@ def set_key(cache_key):
 def get_key(cache_key):
     cache_item = cache_manager.get(cache_key)
     return ApiResult(
-        payload={'key': cache_item.key, 'value': cache_item.value} if cache_item else {},
+        payload=cache_item.to_dict() if cache_item else {},
         message='Cache key get success',
         status=HTTPStatus.OK
     )

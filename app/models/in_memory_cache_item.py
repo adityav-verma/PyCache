@@ -37,3 +37,10 @@ class InMemoryCacheItem(CacheItemInterface):
     @property
     def last_updated_at(self) -> datetime:
         return self._last_updated_at
+
+    def to_dict(self) -> Dict:
+        return {
+            'key': self.key,
+            'value': self.value,
+            'last_updated_at': str(self.last_updated_at)
+        }

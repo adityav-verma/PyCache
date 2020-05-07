@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Dict, Optional, List
+from typing import Dict, Optional
 
 from app.interfaces.models.cache_item_interface import CacheItemInterface
 

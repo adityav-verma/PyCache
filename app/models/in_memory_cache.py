@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Dict, List
+from typing import Optional, Dict
 
 from app.interfaces.eviction_policy_interface import EvictionPolicyInterface
 from app.interfaces.factories.cache_factory import CacheFactoryInterface

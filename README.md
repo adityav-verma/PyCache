@@ -29,7 +29,6 @@ When Kafka starts, it registers it’s own broker with Zookeeper, however, if we
 
 On the next start it tries to do the same thing, but fails. Zookeeper after a min cleans up any dangling registrations. Hence we can restart and things work again.
 
-
 ## Covered Cases
 
 ### Basic SET, GET and EXPIRE operations

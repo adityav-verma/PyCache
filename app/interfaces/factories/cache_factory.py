@@ -18,4 +18,3 @@ class CacheFactoryInterface(ABC):
 
     @abstractmethod
     def create_cache_event(self, type: EventType, cache_item: CacheItemInterface) -> EventInterface: pass
-

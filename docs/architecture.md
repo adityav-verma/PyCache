@@ -1,4 +1,14 @@
-## Architecture
+# Architecture
+
+![Architecture diagram](architecture_diagram.png)
+
+## Cache Server
+
+## Load Balancer
+
+## Commit Log
+
+
 ### Queries
 * A `Flask API server`, which has a REST API interface for clients to consume
 * 3 containers of the flask server are run, to simulate 3 nodes, however, the system works for `n` nodes

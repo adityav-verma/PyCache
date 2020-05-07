@@ -1,6 +1,7 @@
 ## API Documentation
 
 There are two API Hosts
+
 **Load Balancer:**
 
 `http://localhost:5000/`

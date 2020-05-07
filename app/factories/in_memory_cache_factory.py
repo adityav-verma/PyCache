@@ -14,8 +14,8 @@ from app.utilities.singleton import singleton
 
 @singleton
 class InMemoryCacheFactory(CacheFactoryInterface):
-    def create_cache_event(self, type: EventType, key: str, value: Optional[Dict]) -> EventInterface:
-        return CacheEvent(type, key, value)
+    def create_cache_event(self, type: EventType, cache_item: CacheItemInterface) -> EventInterface:
+        return CacheEvent(type, cache_item)
 
     def create_cache(self) -> CacheInterface:
         return InMemoryCache(self)

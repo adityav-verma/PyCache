@@ -15,23 +15,23 @@ class CacheManager:
         self._cache = factory.create_cache()
         self._event_queue = EventQueue()
 
-    def _publish_event(self, type: EventType, key: str, value: Optional[Dict]):
-        event = self._factory.create_cache_event(type, key, value)
+    def _publish_event(self, type: EventType, cache_item: CacheItemInterface):
+        event = self._factory.create_cache_event(type, cache_item)
         self._event_queue.publish(event)
 
     def set(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface:
-        response = self._cache.set(key, value, expires_at)
-        self._publish_event(EventType.CACHE_SET, key, value)
-        return response
+        cache_item = self._cache.set(key, value, expires_at)
+        self._publish_event(EventType.CACHE_SET, cache_item)
+        return cache_item
 
-    def get(self, key: str) -> Optional[Dict]:
+    def get(self, key: str) -> Optional[CacheItemInterface]:
         return self._cache.get(key)
 
     def expire(self, key: str) -> bool:
         cache_item = self.get(key)
         response = self._cache.expire(key)
         if cache_item:
-            self._publish_event(EventType.CACHE_EXPIRE, key, cache_item.value)
+            self._publish_event(EventType.CACHE_EXPIRE, cache_item)
         return response
 
     def sync(self, key: str, value: Dict, operation: CacheOperation):
@@ -42,11 +42,3 @@ class CacheManager:
             self._cache.expire(key)
         else:
             raise Exception(f'Invalid cache operation: {key}, {value}, {operation}')
-
-    def replicate(self, key: str, value: Dict, event_type: EventType):
-        payload = {'key': key, 'value': value}
-        if event_type == EventType.CACHE_SET.value:
-            payload['operation'] = CacheOperation.SET.value
-        elif event_type == EventType.CACHE_EXPIRE.value:
-            payload['operation'] = CacheOperation.EXPIRE.value
-        requests.post('http://localhost/api/cache/sync/', json=payload)

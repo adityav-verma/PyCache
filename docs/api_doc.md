@@ -60,7 +60,7 @@ CacheItemValue = {
     "payload": {
         "key": <key_name>,
         "value": <value>,
-        "last_updated_at": <datetime string in utc>
+        "last_accessed_at": <datetime string in utc>
     }
 }
 
@@ -83,7 +83,7 @@ NA
     "payload": {
         "key": <key_name>,
         "value": <value>,
-        "last_updated_at": <datetime string in utc>
+        "last_accessed_at": <datetime string in utc>
     }
 }
 

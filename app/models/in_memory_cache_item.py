@@ -10,7 +10,7 @@ class InMemoryCacheItem(CacheItemInterface):
         self._key = key
         self._value = value
         self._expires_at = expires_at
-        self._last_updated_at = datetime.utcnow()
+        self._last_accessed_at = datetime.utcnow()
 
     @property
     def key(self) -> str:
@@ -18,11 +18,12 @@ class InMemoryCacheItem(CacheItemInterface):
 
     @property
     def value(self) -> Dict:
+        self._last_accessed_at = datetime.utcnow()
         return self._value
 
     @value.setter
     def value(self, value: Dict):
-        self._last_updated_at = datetime.utcnow()
+        self._last_accessed_at = datetime.utcnow()
         self._value = value
 
     @property
@@ -31,16 +32,16 @@ class InMemoryCacheItem(CacheItemInterface):
 
     @expires_at.setter
     def expires_at(self, value: datetime):
-        self._last_updated_at = datetime.utcnow()
+        self._last_accessed_at = datetime.utcnow()
         self._expires_at = value
 
     @property
-    def last_updated_at(self) -> datetime:
-        return self._last_updated_at
+    def last_accessed_at(self) -> datetime:
+        return self._last_accessed_at
 
     def to_dict(self) -> Dict:
         return {
             'key': self.key,
             'value': self.value,
-            'last_updated_at': str(self.last_updated_at)
+            'last_accessed_at': str(self.last_accessed_at)
         }

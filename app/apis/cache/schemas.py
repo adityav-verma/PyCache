@@ -1,6 +1,6 @@
 from app.constants import CacheOperation
 
-NumberCacheItem= {
+NumberCacheItem = {
     'type': 'number'
 }
 
@@ -37,5 +37,5 @@ SyncPayload = {
         'key': {'type': 'string'},
         'value': CacheItemValue
     },
-    'required': ['operation', 'key', 'value']
+    'required': ['operation', 'key']
 }

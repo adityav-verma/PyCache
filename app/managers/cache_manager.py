@@ -11,22 +11,25 @@ class CacheManager:
     def __init__(self, factory: CacheFactoryInterface):
         self._factory = factory
         self._cache = factory.create_cache()
+        self._event_queue = EventQueue()
 
-    def _publish_event(self, type: EventType, key: str, value: Optional[Dict]):
-        event = self._factory.create_cache_event(type, key, value)
-        EventQueue().publish(event)
+    def _publish_event(self, type: EventType, cache_item: CacheItemInterface):
+        event = self._factory.create_cache_event(type, cache_item)
+        self._event_queue.publish(event)
 
     def set(self, key: str, value: Dict, expires_at: Optional[datetime] = None) -> CacheItemInterface:
-        response = self._cache.set(key, value, expires_at)
-        self._publish_event(EventType.CACHE_SET, key, value)
-        return response
+        cache_item = self._cache.set(key, value, expires_at)
+        self._publish_event(EventType.CACHE_SET, cache_item)
+        return cache_item
 
-    def get(self, key: str) -> Optional[Dict]:
+    def get(self, key: str) -> Optional[CacheItemInterface]:
         return self._cache.get(key)
 
     def expire(self, key: str) -> bool:
+        cache_item = self.get(key)
         response = self._cache.expire(key)
-        self._publish_event(EventType.CACHE_SET, key, None)
+        if cache_item:
+            self._publish_event(EventType.CACHE_EXPIRE, cache_item)
         return response
 
     def sync(self, key: str, value: Dict, operation: CacheOperation):

@@ -22,6 +22,7 @@ class InMemoryCacheItem(CacheItemInterface):
 
     @value.setter
     def value(self, value: Dict):
+        self._last_updated_at = datetime.utcnow()
         self._value = value
 
     @property
@@ -30,6 +31,7 @@ class InMemoryCacheItem(CacheItemInterface):
 
     @expires_at.setter
     def expires_at(self, value: datetime):
+        self._last_updated_at = datetime.utcnow()
         self._expires_at = value
 
     @property

@@ -1,5 +1,4 @@
 import json
-
 from kafka import KafkaProducer
 
 from app.interfaces.models.event_interface import EventInterface
@@ -19,4 +18,4 @@ class KafkaPublisher(PublisherInterface):
         )
 
     def publish(self, event: EventInterface):
-        self._publisher.send(self._topic, key=event.type, value=event.payload)
+        self._publisher.send(self._topic, key=event.type.value, value=event.payload)

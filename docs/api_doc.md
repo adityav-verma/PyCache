@@ -59,8 +59,7 @@ CacheItemValue = {
     "message": "Cache key set success",
     "payload": {
         "key": <key_name>,
-        "value": <value>,
-        "last_updated_at": <datetime string in utc>
+        "value": <value>
     }
 }
 
@@ -82,8 +81,7 @@ NA
     "message": "Cache key get success",
     "payload": {
         "key": <key_name>,
-        "value": <value>,
-        "last_updated_at": <datetime string in utc>
+        "value": <value>
     }
 }
 

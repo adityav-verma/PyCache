@@ -6,12 +6,12 @@
 set -exo pipefail
 
 _start_application () {
-  echo "Staring server"
+  echo "Starting server"
 
-  echo "Staring nginx"
+  echo "Starting nginx"
   service nginx start
 
-  echo "Staring uWSGI"
+  echo "Starting uWSGI"
   uwsgi uwsgi.ini
 }
 
